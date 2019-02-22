@@ -1,44 +1,41 @@
-package myproject;
+package com.apple.java.myproject;
 
 public class Recomendations {
-    private int id;
-    private int userId;
+    private Integer id;
+    private Users userId;
     private String textRecomendation = "None";
-    private int rating;
-    private int averageCena;
+    private Integer rating;
+    private Integer averageCena;
 
-    public Recomendations(int id){
-        this.userId = id;
+    public Recomendations(Object id){
+        this.userId = (Users)id;
     }
 
-    public int getId() {
+    public Integer getId() {
         return this.id;
     }
     public void setId(int id){
         this.id = id;
     }
 
-    public int getRating() {
+    public Integer getRating() {
         return this.rating;
     }
 
     public void setRating(int rating) {
         if(rating > 0 && rating <= 5) {
             this.rating = rating;
-            Zavedenie zavedenie = new Zavedenie(this.id);
-            zavedenie.setReiting(this.rating);
+            /*
+            Establishments establishment = new Establishments(this.id);
+            establishment.setReiting(this.rating);*/
         }
         else
             System.out.println("Ошибка: оценка заведения не может быть менее 1 и более 5");
     }
 
-    public int getUserId() {
+    public Users getUserId() {
         return this.userId;
     }
-    public void setUserId(int userId){
-        this.userId = userId;
-    }
-
     public String getTextRecomendation() {
         return this.textRecomendation;
     }
@@ -53,11 +50,11 @@ public class Recomendations {
 
     public void setAverageCena(int averageCena) {
         this.averageCena = averageCena;
-        Zavedenie zavedenie = new Zavedenie(this.id);
-        zavedenie.setAverageCena(this.averageCena);
+        /*Establishments establishment = new Establishments(this.id);
+        establishment.setAverageCena(this.averageCena);*/
     }
 
-    public int getAverageCena() {
+    public Integer getAverageCena() {
         return this.averageCena;
     }
 }

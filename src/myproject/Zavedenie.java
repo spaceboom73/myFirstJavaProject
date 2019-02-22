@@ -1,13 +1,19 @@
-package myproject;
+package com.apple.java.myproject;
 import java.util.*;
 
-class Zavedenie {
-    private int id;
+class Establishments {
+    private Integer id;
     private String name = "None";
-    private float reiting = 0;
-    private float averageCena = 0;
-    public Zavedenie(int id){
+    private Float reiting = new Float(0);
+    private Float averageCena = new Float(0);
+    public Establishments(){
+
+    }
+    public Establishments(int id){
         this.id = id;
+    }
+    public Integer getId(){
+        return this.id;
     }
     public String getName(){
         return this.name;
@@ -16,7 +22,7 @@ class Zavedenie {
         this.name = name;
     }
 
-    public float getAverageCena() {
+    public Float getAverageCena() {
         return this.averageCena;
     }
 
@@ -24,7 +30,7 @@ class Zavedenie {
         this.averageCena = (this.getAverageCena() + averageCena)/2;
     }
 
-    public float getReiting() {
+    public Float getReiting() {
         return this.reiting;
     }
 

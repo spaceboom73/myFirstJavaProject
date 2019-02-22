@@ -1,27 +1,25 @@
-package myproject;
+package com.apple.java.myproject;
 import java.util.Date;
 
 public class Users {
-    private int id;
-    private int summRatings;
+    private Integer id;
+    private Integer summRatings;
     private String registrationDate;
     private String userName;
-    private String rangUser;
+    private enum rangUser{
+        Newcomer, // новичок
+        Userman, // постоянный пользователь
+        Empirical, // опытный
+        Hardmad // мастер
+    };
+    private rangUser rangUserSelection;
 
-    public int getId(){
+    public Integer getId(){
         return this.id;
     }
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public String getRangUser() {
-        return this.rangUser;
-    }
-
-    public void setRangUser(String rangUser) {
-        this.rangUser = rangUser;
     }
 
     public String getRegistrationDate() {
@@ -41,26 +39,40 @@ public class Users {
         this.userName = userName;
     }
 
-    public int getSummRatings() {
+    public Integer getSummRatings() {
         return this.summRatings;
     }
 
     public void summRatingsPlus() {
         this.summRatings = getSummRatings()+1;
         if(this.summRatings > 5 && this.summRatings <= 10)
-            setRangUser("Новичок");
+            setRangUser(rangUser.Newcomer);
         if(this.summRatings > 10 && this.summRatings <= 50)
-            setRangUser("Бывалый");
+            setRangUser(rangUser.Userman);
         if(this.summRatings > 50 && this.summRatings <= 100)
-            setRangUser("Опытный");
+            setRangUser(rangUser.Empirical);
         if(this.summRatings > 100)
-            setRangUser("Мастер");
+            setRangUser(rangUser.Hardmad);
+    }
+    private void setRangUser(rangUser selection){
+        this.rangUserSelection = selection;
+    }
+    public void getRangUser(rangUser selection){
+        if(selection == rangUser.Newcomer)
+            System.out.println("Этот пользователь новичок");
+        if(selection == rangUser.Userman)
+            System.out.println("Этот пользователь бывалый");
+        if(selection == rangUser.Empirical)
+            System.out.println("Этот пользователь опытный");
+        if(selection == rangUser.Hardmad)
+            System.out.println("Этот пользователь мастер");
+
     }
     public Recomendations createRecomendation(int rating, String textRecomendation, int averageCena){
-        Recomendations recomendations = new Recomendations(this.id);
-        recomendations.setRating(rating);
-        recomendations.setTextRecomendation(textRecomendation);
-        recomendations.setAverageCena(averageCena);
-        return recomendations;
+        Recomendations recomendation = new Recomendations(this);
+        recomendation.setRating(rating);
+        recomendation.setTextRecomendation(textRecomendation);
+        recomendation.setAverageCena(averageCena);
+        return recomendation;
     }
 }
