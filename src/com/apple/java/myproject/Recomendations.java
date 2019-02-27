@@ -1,16 +1,31 @@
 package com.apple.java.myproject;
 
+import com.apple.java.myproject.exception.RatingException;
+
 public class Recomendations { // класс рекомендаций
     private Integer id; // ID заведения, которому будет присвоена рекомендация
     private Users user; // объект пользователя, который данную рекомендацию создал
     private String textRecomendation = "None"; // текст рекомендации
     private Integer rating; // рейтинг посещения, выставленный пользователем
-    private Integer averageCena; // цена чека, выставленная пользователем
+    private Integer averageSumm; // цена чека, выставленная пользователем
 
+    public Recomendations(){
+
+    }
     public Recomendations(Object id){
         this.user = (Users)id;
     } // конструктор
-
+    public Recomendations (int rating, String textRecomendation, int averageSumm, Object user, Object establishment){ // создание рекомендации с опр. параметрами
+        this.user = (Users)user;
+        try {
+            this.setRating(rating, establishment);
+        }
+        catch(RatingException except){
+            System.out.println(except.getMessage());
+        }
+        this.setTextRecomendation(textRecomendation);
+        this.setAverageSumm(averageSumm, establishment);
+    }
     public Integer getId() { // ID заведения
         return this.id;
     }
@@ -22,15 +37,14 @@ public class Recomendations { // класс рекомендаций
         return this.rating;
     }
 
-    public void setRating(int rating) { // изменить рейтинг
-        if(rating > 0 && rating <= 5) {
-            this.rating = rating;
-            /*
-            Establishments establishment = new Establishments(this.id);
-            establishment.setReiting(this.rating);*/
+    public void setRating(int rating, Object establishment) throws RatingException { // изменить рейтинг
+        if(rating < 1 || rating > 5) {
+            throw new RatingException("Значение рейтинга некорректно");
         }
-        else
-            System.out.println("Ошибка: оценка заведения не может быть менее 1 и более 5");
+        else {
+            this.rating = rating;
+            ((Establishments) establishment).setReiting(this.rating);
+        }
     }
 
     public Users getUserId() { // получить класс пользователя, который оставил рекомендацию
@@ -48,13 +62,13 @@ public class Recomendations { // класс рекомендаций
             this.textRecomendation = textRecomendation;
     }
 
-    public void setAverageCena(int averageCena) { // изменить цену чека за данное посещение
-        this.averageCena = averageCena;
-        /*Establishments establishment = new Establishments(this.id);
-        establishment.setAverageCena(this.averageCena);*/
+    public void setAverageSumm(int averageSumm, Object establishment) { // изменить цену чека за данное посещение
+        this.averageSumm = averageSumm;
+        ((Establishments)establishment).setAverageSumm(this.averageSumm);
+        //нужно дополнить изменение среднего чека новым классом
     }
 
-    public Integer getAverageCena() { // узнать среднюю цену
-        return this.averageCena;
+    public Integer getAverageSumm() { // узнать среднюю цену
+        return this.averageSumm;
     }
 }

@@ -1,11 +1,11 @@
 package com.apple.java.myproject;
 import java.util.*;
 
-class Establishments { // класс заведений
+public class Establishments { // класс заведений
     private Integer id; // ID заведения
     private String name = "None"; // название заведения
-    private Float reiting = new Float(0); // средний рейтинг заведения, взятый от всех рекомендаций
-    private Float averageCena = new Float(0); // средний чек, взятый от всех рекомендаций
+    private List<Integer> averageRating = new ArrayList<Integer>();
+    private List<Integer> averageSumm = new ArrayList<Integer>();
     public Establishments(){ // конструкто
     }
     public Establishments(int id){
@@ -25,19 +25,32 @@ class Establishments { // класс заведений
         this.name = name;
     } // изменить название заведения
 
-    public Float getAverageCena() {
-        return this.averageCena;
+    public Float getAverageSumm() {
+        Float allSumm = new Float(0.0);
+        Integer chislo = 0;
+        for(Integer summ : this.averageSumm){
+            allSumm += summ.floatValue();
+            chislo++;
+        }
+        return allSumm/chislo.floatValue();
     } //получить стоимость среднего чека
 
-    public void setAverageCena(int averageCena) {
-        this.averageCena = (this.getAverageCena() + averageCena)/2;
+    public void setAverageSumm(int averageSumm) {
+        this.averageSumm.add(averageSumm);
     }// изменит средний чек с учетом параметра, который пришёл от класса рекомендаций
 
     public Float getReiting() {
-        return this.reiting;
+        Float averageReting = new Float(0.0);
+        Integer chislo = 0;
+        for(Integer rating : this.averageRating)
+        {
+            averageReting += rating.floatValue();
+            chislo++;
+        }
+        return averageReting/chislo.floatValue();
     } // получить рейтинг
 
     public void setReiting(int reiting) {
-        this.reiting = (reiting + this.getReiting())/2;
+        this.averageRating.add(reiting);
     }// изменить средний рейтинг с учетом параметра из класса рекомендаций
 }

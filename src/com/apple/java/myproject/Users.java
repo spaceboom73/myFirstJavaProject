@@ -4,9 +4,9 @@ import java.util.Date;
 public class Users {
     private Integer id = 0; // ID пользователя
     private Integer summRatings = 0; // количество оставленных отзывов/рекомендаций
-    private String registrationDate; // дата регистрации
+    public Date registrationDate; // дата регистрации
     private String userName; // Имя пользователя
-    private enum rangUser{
+    public enum rangUser{
         Newcomer, // новичок
         Userman, // постоянный пользователь
         Empirical, // опытный
@@ -22,15 +22,6 @@ public class Users {
 
     public void setId(int id) { // изменить ID пользователя
         this.id = id;
-    }
-
-    public String getRegistrationDate() {//получить дату регистрации
-        return this.registrationDate;
-    }
-
-    public void RegistrationDate() {//инициализировать дату регистрации на сегодняшний день
-        Date date = new Date();
-        this.registrationDate = date.toString();
     }
 
     public String getUserName() {//получить имя пользователя
@@ -70,12 +61,5 @@ public class Users {
             System.out.println("Этот пользователь опытный");
         if(selection == rangUser.Hardmad)
             System.out.println("Этот пользователь мастер");
-    }
-    public Recomendations createRecomendation(int rating, String textRecomendation, int averageCena){ // создание рекомендации с опр. параметрами
-        Recomendations recomendation = new Recomendations(this);
-        recomendation.setRating(rating);
-        recomendation.setTextRecomendation(textRecomendation);
-        recomendation.setAverageCena(averageCena);
-        return recomendation;
     }
 }
