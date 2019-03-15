@@ -1,18 +1,16 @@
 package com.apple.java.myproject;
 
 import com.apple.java.myproject.exception.*;
+import com.apple.java.myproject.utils.enums.ratingSelection;
 
-import static com.apple.java.myproject.utils.FileJobber.*;
+import static com.apple.java.myproject.utils.constants.RecomendationsConstant.*;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 public class Recomendations { // класс рекомендаций
     private Integer id; // ID заведения, которому будет присвоена рекомендация
     private Users user; // объект пользователя, который данную рекомендацию создал
     private String textRecomendation = "None"; // текст рекомендации
-    private Integer rating; // рейтинг посещения, выставленный пользователем
+    private ratingSelection rating; // рейтинг посещения, выставленный пользователем
     private Integer averageSumm; // цена чека, выставленная пользователем
 
     public Recomendations(){
@@ -21,15 +19,10 @@ public class Recomendations { // класс рекомендаций
     public Recomendations(Object id){
         this.user = (Users)id;
     } // конструктор
-    public Recomendations (int rating, String textRecomendation, int averageSumm, Object user)
+    public Recomendations (ratingSelection rating, String textRecomendation, int averageSumm, Object user)
     throws InputTextException { // создание рекомендации с опр. параметрами
         this.user = (Users)user;
-        try {
-            this.setRating(rating);
-        }
-        catch(RatingException except){
-            System.out.println(except.getMessage());
-        }
+        this.setRating(rating);
         this.setTextRecomendation(textRecomendation);
         this.setAverageSumm(averageSumm);
     }
@@ -40,17 +33,12 @@ public class Recomendations { // класс рекомендаций
         this.id = id;
     }
 
-    public Integer getRating() { // рейтинг
-        return this.rating;
+    public String getRating() { // рейтинг
+        return this.rating.getDescription();
     }
 
-    public void setRating(int rating) throws RatingException { // изменить рейтинг
-        if(rating < 1 || rating > 5) {
-            throw new RatingException("Значение рейтинга некорректно");
-        }
-        else {
-            this.rating = rating;
-        }
+    public void setRating(ratingSelection rating){ // изменить рейтинг
+        this.rating = rating;
     }
 
     public Users getUser() { // получить класс пользователя, который оставил рекомендацию
@@ -79,39 +67,16 @@ public class Recomendations { // класс рекомендаций
         return this.averageSumm;
     }
     public String toFile(){ // стринг для записи в recomendations.txt
-        String returnText = "establishmentID - " + this.id + ";" + "userID - " + this.user.getId() + ";" + "Text - " +
-                this.textRecomendation + ";" + "rating - " + this.rating + ";" + "summ - " + this.averageSumm + ";\n";
+        String returnText = establishmentID + " - " + this.getId() + ";" + userID + " - " + this.user.getId() + ";" +
+                textBase + " - " + this.getTextRecomendation() + ";" + ratingBase + " - " + this.rating.toString() + ";" +
+                summBase + " - " + this.getAverageSumm() + ";\n";
         return returnText;
     }
-    public static ArrayList<Recomendations> createRecomendationsFromBase (String fileText, ArrayList<Users> users)
-                                                throws LoadBaseException, UsersNotFoundException, InputTextException {
-        //создание листа с рекомендациями, с данными из файла
-        String [] textFromFile = ReadFile(fileText).split("\n"); // записываем в массив стринг каждую строку из файла
-        ArrayList<Recomendations> returnList = new ArrayList<Recomendations>();
-        if(textFromFile[0].length() < 1) // проверяем наличие данных каких-либо в файле
-            throw new LoadBaseException("Ошибка загрузки данных. Файл пуст");
-        else {
-            for (String text : textFromFile) {
-                if(text.lastIndexOf("establishmentID") == -1) // проверяем, хранятся ли в данном файле данные
-                    // именно для класса Recomendations
-                    throw new LoadBaseException("Ошибка загрузки данных. Не найдено уникального ключа");
-                else {
-                    Map<String, String> thisRow = createFromBase(text); // формируем Map  с ключами из файла
-                    Users thisUser = null;
-                    for(int i = 0; i < users.size(); i++)
-                        if(users.get(i).getId().equals(new Integer(thisRow.get("userID"))))
-                            thisUser = users.get(i);
-
-                    if(thisUser == null) // проверяем, есть ли среди объектов Users, объект с ID одного из объектов из файла
-                        throw new UsersNotFoundException("Пользователя с таким ID для рекомендаций не найден");
-                    else{
-                        Recomendations thisRecomendation = new Recomendations(new Integer(thisRow.get("rating")),
-                                thisRow.get("Text"), new Integer(thisRow.get("summ")), thisUser); // создаем объект
-                        returnList.add(thisRecomendation); // добавляем к возвращаемой коллекции
-                    }
-                }
-            }
-        }
-        return returnList;
+    public void printInfo(){
+        System.out.println("ID заведения: " + this.getId());
+        System.out.println("ID пользователя: " + this.user.getId());
+        System.out.println("Text: " + this.getTextRecomendation());
+        System.out.println("rating: " + this.getRating());
+        System.out.println("summ: " + this.getAverageSumm());
     }
 }

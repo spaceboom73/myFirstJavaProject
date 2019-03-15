@@ -67,10 +67,13 @@ public class FileJobber {
                 if(date.length > 1)
                     informationFromDate.put(date[0], date[1]); // записываем в Map соответственно, ключ-значение
             }
-            catch (Exception ex){
+            catch (Exception ex) {
                 ex.printStackTrace();
+                System.out.println("Программа была остановлена из за ошибки в загрузке данных из файла.");
+                System.out.println("Обычно это происходит потому что данные в файле указаны не верным образом");
+                System.exit(1);
             }
-            //
+
         }
         return informationFromDate; // возвращаем Map
     }
