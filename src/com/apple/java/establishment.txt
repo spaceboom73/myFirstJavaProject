@@ -1,3 +1,0 @@
-ID - 1;name - Gonzo Bar;averageRating - 5,;averageSumm - 500,;
-ID - 2;name - Антресоль;averageRating - 5,5,3,2,4,4,4,4,;averageSumm - 900,1500,1650,2700,300,;
-ID - 3;name - Сели-поели;averageRating - 4,4,;averageSumm - 300,300,;

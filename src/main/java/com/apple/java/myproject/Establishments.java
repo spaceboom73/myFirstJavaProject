@@ -39,6 +39,7 @@ public class Establishments { // класс заведений
             }
         }
     }
+    public void setId(Integer id) { this.id = id; }
     public Integer getId(){
         return this.id;
     } // получить ID заведения
@@ -103,6 +104,30 @@ public class Establishments { // класс заведений
         }
         returnText += ";\n";
         return returnText;
+    }
+    public String toBaseCheck() {
+        String sql = "insert into establishment_checks (id, summ) values ";
+        if (this.summList.size() == 0)
+            sql += "(" + this.getId() + ", " + "None)";
+        else {
+            for(int i = 0; i < this.summList.size(); i++){
+                sql += "(" + this.getId() + ", " + this.summList.get(i) + "),";
+            }
+        }
+        sql = sql.substring(0, sql.lastIndexOf(","));
+        return sql;
+    }
+    public String toBaseRating(){
+        String sql = "insert into establishment_ratings (id, rating) values ";
+        if (this.ratingList.size() == 0)
+            sql += "(" + this.getId() + ", " + "None)";
+        else {
+            for(int i = 0; i < this.ratingList.size(); i++){
+                sql += "(" + this.getId() + ", " + this.ratingList.get(i) + "),";
+            }
+        }
+        sql = sql.substring(0, sql.lastIndexOf(","));
+        return sql;
     }
     public void printInfo() { // метод возвращающий всю информацию о заведении
         System.out.println("Информация о заведении:");

@@ -19,8 +19,8 @@ public class Recomendations { // класс рекомендаций
     public Recomendations(Object id){
         this.user = (Users)id;
     } // конструктор
-    public Recomendations (ratingSelection rating, String textRecomendation, int averageSumm, Object user)
-    throws InputTextException { // создание рекомендации с опр. параметрами
+    public Recomendations (ratingSelection rating, String textRecomendation, int averageSumm, Object user) throws
+            InputTextException{ // создание рекомендации с опр. параметрами
         this.user = (Users)user;
         this.setRating(rating);
         this.setTextRecomendation(textRecomendation);

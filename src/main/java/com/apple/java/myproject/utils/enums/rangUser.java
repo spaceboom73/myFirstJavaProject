@@ -1,6 +1,7 @@
 package com.apple.java.myproject.utils.enums;
 
 public enum rangUser {
+    None("зарегистрированный"),
     Newcomer("новичок"),// новичок
     Userman("постоянный пользователь"), // постоянный пользователь
     Empirical("опытный"), // опытный
@@ -14,10 +15,11 @@ public enum rangUser {
     }
     public static rangUser getChoice(String text){
         rangUser returnRang = null;
-        if(text.equals("Newcomer")) returnRang = Newcomer;
-        if(text.equals("Userman")) returnRang = Userman;
-        if(text.equals("Empirical")) returnRang = Empirical;
-        if(text.equals("Hardman")) returnRang = Hardman;
+        if(text.equals("зарегистрированный")) returnRang = None;
+        if(text.equals("новичок")) returnRang = Newcomer;
+        if(text.equals("постоянный пользователь")) returnRang = Userman;
+        if(text.equals("опытный")) returnRang = Empirical;
+        if(text.equals("мастер")) returnRang = Hardman;
         return returnRang;
     }
 }

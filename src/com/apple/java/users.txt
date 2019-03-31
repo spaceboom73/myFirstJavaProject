@@ -1,5 +1,0 @@
-ID - 0;userName - Первый пользователь;summRatings - 100;registrationDate - 15-03-2019 07:05:08;rangUser - Empirical;
-ID - 1;userName - Второй пользователь;summRatings - 100;registrationDate - 15-03-2019 07:05:08;rangUser - Empirical;
-ID - 0;userName - Третий пользователь;summRatings - 100;registrationDate - 15-03-2019 07:05:08;rangUser - Empirical;
-ID - 3;userName - Четвертый пользователь;summRatings - 100;registrationDate - 15-03-2019 07:05:08;rangUser - Empirical;
-ID - 4;userName - Пятый пользователь;summRatings - 100;registrationDate - 15-03-2019 07:05:08;rangUser - Empirical;

@@ -11,7 +11,7 @@ public class Users{
     private Integer summRatings = 0; // количество оставленных отзывов/рекомендаций
     public String registrationDate; // дата регистрации
     private String userName; // Имя пользователя
-    private rangUser rangUserSelection;
+    private rangUser rangUserSelection = rangUser.None;
     public Users(){ // конструктор создание пользователя
     }
     public Users(Map<String,String> baseInformation){ // конструктор для создания объекта с информации из БД
@@ -41,6 +41,7 @@ public class Users{
     public Integer getSummRatings() {//получить общее количество оставленных отзывов/рекомендаций
         return this.summRatings;
     }
+    public void setSummRatings(Integer summ){this.summRatings = summ;}
 
     public void summRatingsPlus() { // увелечение количества оставленных отзывов
         this.summRatings += 1;
@@ -54,7 +55,7 @@ public class Users{
         if(this.summRatings > 100)
             this.setRangUser(rangUser.Hardman);
     }
-    private void setRangUser(rangUser selection){ // изменение звания
+    public void setRangUser(rangUser selection){ // изменение звания
         this.rangUserSelection = selection;
     }
     public String getRangUser(){ // получить текст с званием пользователя
@@ -63,7 +64,7 @@ public class Users{
     public String toFile(){ // формирование String для записи в файл
         String returnText = idBase + " - " + this.id + ";" + userNameBase + " - " + this.userName + ";" +
                 summRatingsBase + " - " + this.summRatings + ";" + registrationDateBase + " - " + this.registrationDate
-                + ";" + rangUserBase + " - " + this.rangUserSelection + ";" + "\n";
+                + ";" + rangUserBase + " - " + this.getRangUser() + ";" + "\n";
         return returnText;
     }
     public void printInfo(){ // Вывести информацию о пользователе
